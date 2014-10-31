@@ -1,39 +1,37 @@
 <?php
 
 /**
+ * @author
+ * 
  * Issue #1
- * Please turn true, false and null of following code into uppercase
+ * Turn true, flase and null into uppercase. And clear comment
  * Ref: https://github.com/bangnguyen47/learning/issues/1
  */
+$source = file_get_contents ( 'temp.php' );
+$tokens = token_get_all ( $source );
 
-if (!defined('T_ML_COMMENT')) {
-	define('T_ML_COMMENT', T_COMMENT);
-} else {
-	define('T_DOC_COMMENT', T_ML_COMMENT);
-}
-
-$source = file_get_contents('example1.php');
-$tokens = token_get_all($source);
-echo '<pre />';
-var_dump($tokens);die;
-
-foreach ($tokens as $token) {
-	if (is_string($token)) {
+foreach($tokens as $token ) {
+	if(is_string($token)) {
 		// simple 1-character token
 		echo $token;
 	} else {
 		// token array
-		list($id, $text) = $token;
-
+		list ($id, $text) = $token;
+		
 		switch ($id) {
-			case T_COMMENT:
-			case T_ML_COMMENT: // we've defined this
-			case T_DOC_COMMENT: // and this
-				// no action on comments
+			case T_DOC_COMMENT :
 				break;
-
-			default:
-				// anything else -> output "as is"
+			case T_COMMENT :
+				break;
+			case T_STRING :
+				if ($text === 'true'
+						|| $text === 'false'
+						|| $text === 'null') {
+					echo strtoupper($text);
+					break;
+				}
+			
+			default :
 				echo $text;
 				break;
 		}
