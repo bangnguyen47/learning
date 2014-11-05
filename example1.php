@@ -24,9 +24,10 @@ foreach($tokens as $token ) {
 			case T_COMMENT :
 				break;
 			case T_STRING :
-				if ($text === 'true'
-						|| $text === 'false'
-						|| $text === 'null') {
+				if ($text === 'true' ||
+					$text === 'false' ||
+					$text === 'null')
+				{
 					echo strtoupper($text);
 					break;
 				}
