@@ -2,7 +2,7 @@
 
 class CurlyNode
 {
-	var $body = "";
+	public $body = "";
 }
 
 // echo token_name(308);
@@ -24,10 +24,24 @@ foreach($tokens as $token ) {
 $tree = array();
 foreach ($data as $key => $val)
 {
-	if($val == '{' && isset($data[$key+1]) && $data[$key+1] !='}')
+	if($val == '{')
 	{
 		$node = new CurlyNode();
-		$node->body = $data[$key+1];
+		if(isset($data[$key+1]) && $data[$key+1] !='}')
+		{
+			for($i=$key; $i <count($data); $i++)
+			{
+				if(isset($data[$i+1]) && $data[$i+1] !='}')
+				{
+					$node->body .= $data[$i+1];
+					
+				} else {
+					break;
+				}
+			}
+		} else {
+			$node->body = "";
+		}
 		$tree[] = $node;
 	}
 	
