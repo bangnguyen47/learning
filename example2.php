@@ -3,8 +3,6 @@
 // echo token_name(308);
 $source = file_get_contents ( 'temp.php' );
 $tokens = token_get_all ( $source );
-// echo '<pre />';
-// var_dump($tokens);die;
 
 $data =array();
 foreach($tokens as $token ) {
@@ -18,8 +16,6 @@ foreach($tokens as $token ) {
 	}
 }
 
-// echo '<pre />';
-// var_dump($data);
 $tree = array();
 $open_flag = 0;
 $closed_flag = 0;
@@ -35,4 +31,4 @@ foreach ($data as $val)
 	
 }
 echo '<pre />';
-var_dump($tree);
+print_r($tree);
