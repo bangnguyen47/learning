@@ -17,7 +17,7 @@ foreach($tokens as $token ) {
 		// token array
 		list ($id, $text) = $token;
 		$data[] = token_name($id);
-		echo $text .' | ' .$id;
+// 		echo $text .' | ' .$id;
 	}
 }
 // echo '<pre />';print_r($tokens);die;
@@ -28,7 +28,7 @@ foreach ($data as $key => $val)
 	{
 		$node = new CurlyNode();
 		$node->body = $data[$key+1];
-		$tree[] = array($node);
+		$tree[] = $node;
 	}
 	
 }
