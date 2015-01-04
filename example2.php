@@ -1,5 +1,10 @@
 <?php
 
+class CurlyNode
+{
+	var $body = "";
+}
+
 // echo token_name(308);
 $source = file_get_contents ( 'temp.php' );
 $tokens = token_get_all ( $source );
@@ -12,7 +17,7 @@ foreach($tokens as $token ) {
 		// token array
 		list ($id, $text) = $token;
 		$data[] = token_name($id);
-// 		echo $text .' | ' .$id;
+		echo $text .' | ' .$id;
 	}
 }
 // echo '<pre />';print_r($tokens);die;
@@ -29,8 +34,3 @@ foreach ($data as $key => $val)
 }
 echo '<pre />';
 print_r($tree);
-
-class CurlyNode
-{
-	var $body = "";
-}
