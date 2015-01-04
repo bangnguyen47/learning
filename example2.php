@@ -24,7 +24,7 @@ foreach($tokens as $token ) {
 $tree = array();
 foreach ($data as $key => $val)
 {
-	if($val == '{')
+	if($val == '{' && isset($data[$key+1]) && $data[$key+1] !='}')
 	{
 		$node = new CurlyNode();
 		$node->body = $data[$key+1];
