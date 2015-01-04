@@ -15,20 +15,22 @@ foreach($tokens as $token ) {
 // 		echo $text .' | ' .$id;
 	}
 }
-
+// echo '<pre />';print_r($tokens);die;
 $tree = array();
-$open_flag = 0;
-$closed_flag = 0;
-foreach ($data as $val)
+foreach ($data as $key => $val)
 {
 	if($val == '{')
 	{
-		$tree[] = array($val);
-	} else if ($val == '}') {
-		$tree[$open_flag][] = $val;
-		$open_flag ++;
+		$node = new CurlyNode();
+		$node->body = $data[$key+1];
+		$tree[] = array($node);
 	}
 	
 }
 echo '<pre />';
 print_r($tree);
+
+class CurlyNode
+{
+	var $body = "";
+}
