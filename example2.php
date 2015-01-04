@@ -1,38 +1,47 @@
 <?php
 
-/**
- * @author
- * 
- * Issue #2
- * 
- * Ref: https://github.com/bangnguyen47/learning/issues/2
- */
+// echo token_name(308);
+$source = file_get_contents ( 'temp.php' );
+$tokens = token_get_all ( $source );
+// echo '<pre />';
+// var_dump($tokens);die;
 
-echo token_name(308);
-$source = file_get_contents('temp.php');
-$tokens = token_get_all($source);
-//var_dump($tokens);die;
 
-if (is_string($token)) {
-    echo $token;
-} else {
-    for($i=0; $i < count($tokens); $i++) {
-        list ($id, $text) = $tokens[$i];
-        switch ($id) {
-            case T_CLASS :
-                echo '//Start class' .PHP_EOL .$text;
-                break;
-            case T_COMMENT :
-                break;
-            case T_STRING :
-                if ($text === 'true' || $text === 'false' || $text === 'null') {
-                    echo strtoupper($text);
-                    break;
-                }
-
-            default :
-                echo $text;
-                break;
-        }
-    }
+$data =array();
+foreach($tokens as $token ) {
+	if(is_string($token)) {
+		$data[] =  $token;
+	} else {
+		// token array
+		list ($id, $text) = $token;
+		$data[] = token_name($id);
+// 		echo $text .' | ' .$id;
+	}
 }
+
+// echo '<pre />';
+// var_dump($data);
+$tree = array();
+$open_flag = 0;
+$closed_flag = 0;
+foreach ($data as $val)
+{
+	
+	if($val == '{')
+	{
+		$open_flag ++;
+		$tree[] = array($val);
+	}
+	
+	if ($val == '}')
+	{
+		$closed_flag ++;
+		if ($open_flag > 0)
+		{
+			for ($i=0;$i<$open_flag;$i++)
+				$tree[] = '}'; 
+		}
+	}
+}
+echo '<pre />';
+var_dump($tree);
